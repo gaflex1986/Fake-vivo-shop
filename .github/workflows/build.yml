@@ -19,17 +19,20 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    # Принудительно ставим стабильный Gradle 8.10 вместо ломающего всё Gradle 9.x
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: '8.10'
 
     # Создаем дебаг-ключ
     - name: Create debug keystore
       run: |
         keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
 
-    # Сборка в один поток, без кэша, без демона + фикс Java AWT
+    # Обычная сборка, теперь плагины не будут конфликтовать с версией Gradle
     - name: Build with Gradle
-      run: gradle assembleDebug --no-daemon --no-configuration-cache --no-build-cache -Dorg.gradle.parallel=false
+      run: gradle assembleDebug
       env:
         GRADLE_OPTS: "-Djava.awt.headless=true"
 
