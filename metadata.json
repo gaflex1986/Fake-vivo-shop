@@ -1,0 +1,6 @@
+{
+  "name": "Vivo Shop",
+  "description": "Полноценный офлайн-магазин телефонов Vivo Shop на Kotlin и Jetpack Compose с поддержкой Material You.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
